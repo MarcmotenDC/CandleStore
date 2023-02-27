@@ -77,3 +77,10 @@
     align-content: space-evenly;
     align-items: center;
 }
+
+.pageTitle {
+    text-align: center;
+    text-decoration: underline #D62828;
+    font-size: 46px;
+    color: #003049;
+}
