@@ -1,0 +1,86 @@
+* {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: #EAE2B7;
+}
+
+.header {
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    color: #003049;
+
+}
+.gallery {
+    text-align: center;
+    padding: 200px;
+    border-style: solid;
+    border-radius: 2px;
+    border-color: #F77F00;
+    background-color: #F77F00;
+}
+.galleryPic {
+    background-color: #F77F00;
+}
+.card {
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 gray;
+    height: 350px;
+    width: 250px;
+    border-radius: 2px;
+    border-style: solid;
+    border-color: #F77F00;
+    padding: 5px;
+    background-color: white ;
+    
+}
+.cardImg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    
+}
+.cardBot {
+    text-align: center;
+    background-color: white ;
+    color: #003049;
+}
+.cardTitle {
+    background-color: white ;
+    font-weight: bold;
+   
+}
+.cardDesc{ 
+    background-color: white ;
+}
+
+.addCartBtn {
+    border-color: #D62828;
+    border-radius: 4px;
+    color: white;
+    background-color: #D62828;
+    transition: 0.3s;
+}
+.addCartBtn:hover {
+    border-color: #9a1b1b;
+    background-color: #9a1b1b;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.card-container {
+    display: grid;
+    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 1rem;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
+    align-items: center;
+}
+
+.pageTitle {
+    text-align: center;
+    text-decoration: underline #D62828;
+    font-size: 46px;
+    color: #003049;
+}
