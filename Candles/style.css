@@ -3,6 +3,43 @@
     background-color: #EAE2B7;
 }
 
+body{
+    background-color: #EAE2B7;
+    margin: 0 ;
+}
+
+.navbar-nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #003049;
+    overflow: hidden;
+    font-size: 18px;
+
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 18px 16px;
+    text-decoration: none;
+    float: left;
+    transition: 0.4s;
+} li a:hover {
+    background-color: #D62828;
+    text-decoration: underline;
+}
+
+.navbar-brand {
+    font-weight: bolder;
+    vertical-align: middle;
+}
+
+#cartBtn {
+    float: right;
+}
+
 .header {
     font-weight: bold;
     font-size: 30px;

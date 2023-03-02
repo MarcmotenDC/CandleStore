@@ -1,23 +1,44 @@
 * {
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    background-color: #EAE2B7;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
 }
 
-.navbar .navbar-right.navbar-top {
-    position: absolute;
-    margin-top: 4px;
-    right: 80px;
-  }
+body{
+    background-color: #EAE2B7;
+    margin: 0 ;
+}
 
-  .navbar .navbar-right.navbar-top>li {
-    display: inline-block;
-  }
+.navbar-nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #003049;
+    overflow: hidden;
+    font-size: 18px;
 
-  .navbar .navbar-right.navbar-top>li>a {
-    padding-right: 10px;
-    padding-left: 10px;
-  }
+}
 
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 18px 16px;
+    text-decoration: none;
+    float: left;
+    transition: 0.4s;
+} li a:hover {
+    background-color: #D62828;
+    text-decoration: underline;
+}
+
+.navbar-brand {
+    font-weight: bolder;
+    vertical-align: middle;
+}
+
+#cartBtn {
+    float: right;
+}
 .header {
     font-weight: bold;
     font-size: 30px;
