@@ -1,6 +1,7 @@
 * {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-
+    font-family: 'Shantell Sans', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #003049;
+    box-sizing: border-box;
 }
 
 body{
@@ -57,13 +58,77 @@ li a {
 }
 
 .gallery {
-    text-align: center;
-    padding: 200px;
-    border-style: solid;
-    border-radius: 2px;
-    border-color: #F77F00;
-    background-color: #F77F00;
+    background-color: #FCBF49;
+    overflow: hidden;
+
 }
+
+.galDisplay {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-style: solid;
+    border-radius: 8px;
+    border-width: 6px;
+    border-color: #FCBF49;
+    margin: 0px 20%;
+    transition: 1s;
+
+}
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+.prev:hover,
+.next:hover {
+  background-color: gray;
+}
+
+.fPic {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    transition: 1s;
+
+}
+
+.fPicImg {
+    grid-row-start: 1;
+    grid-row-end: 4;
+    width: 100%;
+}
+
+.fPicTitle {
+    margin: auto;
+    font-size: 40px;
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
+.fPicCost {
+    margin: auto;
+    font-size: 28px;
+}
+
 .galleryPic {
     background-color: #F77F00;
 }
