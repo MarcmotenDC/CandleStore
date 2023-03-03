@@ -34,18 +34,28 @@ li a {
 .navbar-brand {
     font-weight: bolder;
     vertical-align: middle;
+    font-family: 'Shantell Sans', cursive;
 }
 
 #cartBtn {
     float: right;
 }
 .header {
+    display: flex;
+    justify-content: center;
     font-weight: bold;
     font-size: 30px;
     text-align: center;
     color: #003049;
-
 }
+
+.title {
+    font-family: 'Shantell Sans', cursive;
+    border: 6px solid #D62828;
+    border-radius: 16px;
+    width: 50%;
+}
+
 .gallery {
     text-align: center;
     padding: 200px;
