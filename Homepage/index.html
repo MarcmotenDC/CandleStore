@@ -9,6 +9,13 @@
       href="../images/MarthaDL.ico"
       type="image/x-icon"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="style.css" />
     <title>Southern Candles</title>
   </head>
@@ -16,7 +23,7 @@
     <nav class="navbar">
       <ul class="navbar-nav">
         <li>
-          <a class="navbar-brand" href="./index.html">Southern Candles</a>
+          <a class="navbar-brand" href="../Homepage/index.html">Southern Candles</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../Candles/index.html">Candles</a>
@@ -28,11 +35,42 @@
     </nav>
 
     <div class="header">
-      <h1>Southern Candles</h1>
+      <h1 class="title">Southern Candles</h1>
     </div>
-    <div class="gallery">
-      <h1 class="galleryPic">Placeholder Gallery</h1>
-    </div>
+    <gallery class="gallery">
+      <div class="galDisplay">
+        <fpic class="fPic">
+          <img class="fPicImg" src="../images/linen-candle.jpg" />
+          <h2 class="fPicTitle">Title</h2>
+          <h2 class="fPicCost">Cost</h2>
+          <button class="addCartBtn">Add to Cart</button>
+        </fpic>
+        <a class="prev" onclick="nextPic(-1)">&#10094;</a>
+        <a class="next" onclick="nextPic(1)">&#10095;</a>
+      </div>
+      <div class="galDisplay">
+        <fpic class="fPic">
+          <img class="fPicImg" src="../images/linen-candle.jpg" />
+          <h2 class="fPicTitle">Title</h2>
+          <h2 class="fPicCost">Costasdf<h2>
+          <button class="addCartBtn">Add to Cart</button>
+        </fpic>
+        <a class="prev" onclick="nextPic(-1)" style="left: 0">&#10094;</a>
+        <a class="next" onclick="nextPic(1)">&#10095;</a>
+      </div>
+      <div class="galDisplay">
+        <fpic class="fPic">
+          <img class="fPicImg" src="../images/linen-candle.jpg" />
+          <h2 class="fPicTitle">Title</h2>
+          <h2 class="fPicCost">Costtt</h2>
+          <button class="addCartBtn">Add to Cart</button>
+        </fpic>
+        <a class="prev" onclick="nextPic(-1)">&#10094;</a>
+        <a class="next" onclick="nextPic(1)">&#10095;</a>
+      </div>
+
+
+    </gallery>
     <div class="featued">
       <h2>Featured</h2>
       <div class="card-container">
@@ -69,4 +107,5 @@
       </div>
     </div>
   </body>
+  <script src="index.js"></script>
 </html>
