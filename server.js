@@ -1,16 +1,17 @@
 const express = require('express');
 const path = require('path')
 const app = express();
+
 const Commerce = require("@chec/commerce.js");
 
 
-app.use(express.static(__dirname));
+app.use(express.static('public'));
 
 const port = 25565
 
 app.get('/', (req,res) => {
     console.log(req)
-    res.sendFile(path.join(__dirname,'/Homepage/index.html'))
+    res.sendFile(path.join(__dirname,'index.html'))
 } )
 
 app.get('/api', (req,res) => {
