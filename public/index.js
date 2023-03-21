@@ -7,7 +7,7 @@ let cardPriceArr = [];
 let picIndex = 1;
 showPic(picIndex);
 
-const url = "http://localhost:25565/api";
+const url = "/api";
 async function getApi() {
   try {
     const res = await fetch(url);
@@ -63,7 +63,7 @@ function showPic(n) {
   if (n < 1) {
     picIndex = fPic.length;
   }
-  for (i = 0; i < fPic.length; i++) {
+  for (let i = 0; i < fPic.length; i++) {
     fPic[i].style.display = "none";
   }
   fPic[picIndex - 1].style.display = "block";

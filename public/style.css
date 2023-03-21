@@ -135,13 +135,13 @@ li a {
 .card {
     margin: 10px;
     box-shadow: 0 4px 8px 0 gray;
-    height: 350px;
     width: 250px;
     border-radius: 2px;
     border-style: solid;
     border-color: #F77F00;
     padding: 5px;
     background-color: white ;
+    min-height: 340px;
     
 }
 .cardImg {
