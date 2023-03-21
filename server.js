@@ -1,13 +1,13 @@
 const express = require('express');
 const path = require('path')
 const app = express();
+const PORT = process.env.PORT || 3030
 
 const Commerce = require("@chec/commerce.js");
 
 
 app.use(express.static('public'));
 
-const port = 25565
 
 app.get('/', (req,res) => {
     console.log(req)
@@ -33,6 +33,6 @@ app.get('/api', (req,res) => {
         res.sendStatus(500)
        }
 })
-app.listen(port, () => {
+app.listen(PORT, () => {
     console.log(`listening on port ${port}`)
 })
