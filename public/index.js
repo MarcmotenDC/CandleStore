@@ -1,25 +1,58 @@
 const gallery = document.querySelector(".gallery");
-const cardTitle = document.querySelector(".cardTitle");
-const cardDesc = document.querySelector(".cardDesc");
-const cardImg = document.querySelector(".cardImg");
+const productCards = document.querySelector(".card-container");
 let cardTitleArr = [];
 let cardDescArr = [];
 let cardImgArr = [];
+let cardPriceArr = [];
 let picIndex = 1;
 showPic(picIndex);
 
-fetch("http://localhost:25565/api")
-  .then((response) => response.json())
-  .then((data) => {
-    for (i = 0; i < data.length; i++) {
-      cardTitleArr.push(data);
+const url = "http://localhost:25565/api";
+async function getApi() {
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    const dataLength = Object.keys(data.data).length;
+        
+function createCard(cardTitle, cardDesc, cardImg) {
+    let html = `<div class="card">
+      <img class="cardImg" src="${cardImg}" />
+      <div class="cardBot">
+        <p class="cardTitle">${cardTitle}</p>
+        <p class="cardDesc">
+          Something about this candle is cool you should buy it
+        </p>
+        <p class="cardDesc">$10</p>
+        <button class="addCartBtn">Add to Cart</button>
+      </div>
+    </div>`;
+    productCards.innerHTML += html;
+  }
+ 
+    for (let i = 0; i < dataLength; i++) {
+        let cardTitle = data.data[i].name;
+        let cardDesc = data.data[i].description;
+        let cardImg = data.data[i].image.url;
+        // let cardPrice = data.data[i].price;
+        console.log(cardTitle, cardDesc, cardImg)
+        createCard(cardTitle, cardDesc, cardImg);
+    //   cardTitleArr.push(data.data[i].name);
+    //   cardDescArr.push(data.data[i].description);
+    //   cardImgArr.push(data.data[i].image.url);
+    //   cardPriceArr.push(data.data[i].price);
+    
     }
-    console.log(cardTitleArr);
-  });
 
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+
+getApi();
 function nextPic(n) {
   showPic((picIndex += n));
-};
+}
 
 function showPic(n) {
   let i;
