@@ -1,11 +1,10 @@
-const gallery = document.querySelector(".gallery");
+const galDisplay = document.querySelector(".gallery");
 const productCards = document.querySelector(".card-container");
 let cardTitleArr = [];
 let cardDescArr = [];
 let cardImgArr = [];
 let cardPriceArr = [];
 let picIndex = 1;
-showPic(picIndex);
 
 const url = "/api";
 async function getApi() {
@@ -13,16 +12,15 @@ async function getApi() {
     const res = await fetch(url);
     const data = await res.json();
     const dataLength = Object.keys(data.data).length;
+
         
-function createCard(cardTitle, cardDesc, cardImg) {
+function createCard(cardTitle, cardDesc, cardImg, cardPrice) {
     let html = `<div class="card">
       <img class="cardImg" src="${cardImg}" />
       <div class="cardBot">
         <p class="cardTitle">${cardTitle}</p>
-        <p class="cardDesc">
-          Something about this candle is cool you should buy it
-        </p>
-        <p class="cardDesc">$10</p>
+        <p class="cardDesc">${cardDesc}</p>
+        <p class="cardPrice">${cardPrice}</p>
         <button class="addCartBtn">Add to Cart</button>
       </div>
     </div>`;
@@ -31,18 +29,41 @@ function createCard(cardTitle, cardDesc, cardImg) {
  
     for (let i = 0; i < dataLength; i++) {
         let cardTitle = data.data[i].name;
-        let cardDesc = data.data[i].description;
+        let desc = data.data[i].description;
         let cardImg = data.data[i].image.url;
-        // let cardPrice = data.data[i].price;
-        console.log(cardTitle, cardDesc, cardImg)
-        createCard(cardTitle, cardDesc, cardImg);
+        let cardDesc = desc.replace(/(<([^>]+)>)/ig,"");
+        let cardPrice = data.data[i].price.formatted_with_symbol;
+        console.log(cardDesc)
+        createCard(cardTitle, cardDesc, cardImg, cardPrice);
     //   cardTitleArr.push(data.data[i].name);
     //   cardDescArr.push(data.data[i].description);
     //   cardImgArr.push(data.data[i].image.url);
     //   cardPriceArr.push(data.data[i].price);
     
     }
+function createGal(cardTitle, cardImg, cardPrice) {
+    let galHtml = `<div class="galDisplay">
+    <fpic class="fPic">
+      <img class="fPicImg" src="${cardImg}" />
+      <h2 class="fPicTitle">${cardTitle}</h2>
+      <h2 class="fPicCost">${cardPrice}<h2>
+      <button class="addCartBtn">Add to Cart</button>
+    </fpic>
+    <a class="prev" onclick="nextPic(-1)" style="left: 0">&#10094;</a>
+    <a class="next" onclick="nextPic(1)">&#10095;</a>
+  </div>`
+    galDisplay.innerHTML += galHtml;
+}
 
+
+for (let i = 0; i < 3; i++) {
+    let cardTitle = data.data[i].name;
+    let cardImg = data.data[i].image.url;
+    let cardPrice = data.data[i].price.formatted_with_symbol;
+
+    createGal(cardTitle, cardImg, cardPrice)
+}
+showPic(picIndex);
   } catch (err) {
     console.log(err);
   }
@@ -55,8 +76,7 @@ function nextPic(n) {
 }
 
 function showPic(n) {
-  let i;
-  let fPic = document.getElementsByClassName("galDisplay");
+    let fPic = document.getElementsByClassName("galDisplay");
   if (n > fPic.length) {
     picIndex = 1;
   }
@@ -68,3 +88,4 @@ function showPic(n) {
   }
   fPic[picIndex - 1].style.display = "block";
 }
+
