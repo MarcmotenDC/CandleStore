@@ -57,6 +57,11 @@ li a {
     width: 50%;
 }
 
+#featured {
+    text-align: center;
+    text-decoration: underline;
+    font-size: 35px;
+}
 .gallery {
     background-color: #FCBF49;
     overflow: hidden;
