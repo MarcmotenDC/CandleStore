@@ -21,9 +21,19 @@ app.get('/api', (req,res) => {
       commerce.products.list().then((result) => {
         res.json(result);
        if (!commerce) {
-        res.sendStatus(500)
+        res.sendStatus(500);
        }
 })})
+
+app.get('/cart', (req, res) => {
+    commerce.cart.retrieve().then((result => {
+        res.json(result);
+        if (!commerce) {
+            res.sendStatus(500);
+        }
+    }))
+})
+
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`)
 })
