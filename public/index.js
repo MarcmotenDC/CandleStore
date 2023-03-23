@@ -3,13 +3,14 @@ const productCards = document.querySelector(".card-container");
 let picIndex = 1;
 
 const url = "/api";
+
 async function getApi() {
   try {
     const res = await fetch(url);
     const data = await res.json();
     const dataLength = Object.keys(data.data).length;
 
-        
+// Populates product areas with info from database
 function createCard(cardTitle, cardDesc, cardImg, cardPrice, id) {
     let html = `<div class="card">
       <img class="cardImg" src="${cardImg}" />
@@ -31,12 +32,10 @@ function createCard(cardTitle, cardDesc, cardImg, cardPrice, id) {
         let cardPrice = data.data[i].price.formatted_with_symbol;
         let id = data.data[i].id;
         createCard(cardTitle, cardDesc, cardImg, cardPrice, id);
-    //   cardTitleArr.push(data.data[i].name);
-    //   cardDescArr.push(data.data[i].description);
-    //   cardImgArr.push(data.data[i].image.url);
-    //   cardPriceArr.push(data.data[i].price);
     
     }
+
+  //populates gallery with first 3 products
 function createGal(cardTitle, cardImg, cardPrice, id) {
     let galHtml = `<div class="galDisplay">
     <fpic class="fPic">
@@ -60,14 +59,19 @@ for (let i = 0; i < 3; i++) {
 
     createGal(cardTitle, cardImg, cardPrice, id)
 }
+//functions after API is called
+handleClick();
 showPic(picIndex);
+
   } catch (err) {
     console.log(err);
   }
 }
 
-
+// get API 
 getApi();
+
+// gallery arrow functions
 function nextPic(n) {
   showPic((picIndex += n));
 }
@@ -86,3 +90,7 @@ function showPic(n) {
   fPic[picIndex - 1].style.display = "block";
 }
 
+// Adding to cart triggers this
+function handleClick() {
+  const addCartBtn = document.querySelector(".addCartBtn").addEventListener("click", console.log('processing'))
+}

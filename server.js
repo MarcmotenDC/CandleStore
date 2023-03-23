@@ -10,6 +10,7 @@ const commerce = new Commerce(
 
 
 app.use(express.static('public'));
+app.use(express.json());
 
 
 app.get('/', (req,res) => {
@@ -26,14 +27,27 @@ app.get('/api', (req,res) => {
 })})
 
 app.get('/cart', (req, res) => {
-    commerce.cart.retrieve().then((result => {
+    commerce.cart.retrieve()
+    .then((result => {
         res.json(result);
+        
         if (!commerce) {
             res.sendStatus(500);
         }
     }))
 })
 
+app.get('/cart/contents', (req, res) => {
+    commerce.cart.contents().then((items) => res.json(items));
+        if (!commerce) {
+            res.sendStatus(500);
+        }
+    })
+
+
+app.post('/cart', (req, res) => {
+    commerce.cart.add(req.body.productID, 1).then((response) => res.json(response));
+})
 app.listen(PORT, () => {
-    console.log(`listening on port ${PORT}`)
+    console.log(`listening on port ${PORT}`);
 })
