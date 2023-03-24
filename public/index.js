@@ -22,6 +22,8 @@ function createCard(cardTitle, cardDesc, cardImg, cardPrice, id) {
       </div>
     </div>`;
     productCards.innerHTML += html;
+    //Loads content on page AFTER the data is ready to display
+    loadContent();
   }
  
     for (let i = 0; i < dataLength; i++) {
@@ -60,7 +62,6 @@ for (let i = 0; i < 3; i++) {
     createGal(cardTitle, cardImg, cardPrice, id)
 }
 //functions after API is called
-handleClick();
 showPic(picIndex);
 
   } catch (err) {
@@ -89,8 +90,10 @@ function showPic(n) {
   }
   fPic[picIndex - 1].style.display = "block";
 }
-
-// Adding to cart triggers this
-function handleClick() {
-  const addCartBtn = document.querySelector(".addCartBtn").addEventListener("click", console.log('processing'))
+// Waits for API to be ready for display then shows page
+function loadContent() {
+  const pageContent = document.querySelector(".pageContent");
+  const loadingPlaceholder = document.querySelector(".loadingPlaceholder");
+  loadingPlaceholder.style.display = 'none'
+  pageContent.style.display = 'block';
 }

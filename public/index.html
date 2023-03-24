@@ -29,21 +29,39 @@
           <a class="nav-link" href="candles.html">Candles</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="cart.html" id="cartBtn">Cart 🛒<span style="color: white;" class="itemCount"></span></a>
+          <a class="nav-link" id="cartBtn" style="cursor: pointer;"
+            >Cart 🛒<span style="color: white" class="itemCount"></span
+          ></a>
         </li>
       </ul>
     </nav>
-
-    <div class="header">
-      <h1 class="title">Southern Candles</h1>
+    <!-- loading image -->
+    <div class="loadingPlaceholder"></div>
+    <!-- page content -->
+    <div class="pageContent">
+      <div class="header">
+        <h1 class="title">Southern Candles</h1>
+      </div>
+      <gallery class="gallery"> </gallery>
+      <div class="featured">
+        <h2 class="title2">Featured</h2>
+        <!-- Cards displayed here -->
+        <div class="card-container"></div>
+      </div>
     </div>
-    <gallery class="gallery">
-    </gallery>
-    <div class="featured">
-      <h2 id="featured">Featured</h2>
-      <div class="card-container">
+    <div class="popup" id="cart">
+      <div id="cartContent">
+        <h2 id="title2">Cart 🛒<span class="close">&times;</span></h2>
+        <form method="post">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
     </div>
   </body>
-  <script src="index.js"></script>
   <script src="cart.js"></script>
+  <script src="index.js"></script>
 </html>
