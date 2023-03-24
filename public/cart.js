@@ -10,6 +10,9 @@ async function createCart() {
   const res = await fetch(cartUrl);
   const result = await res.json();
   console.log("cart Initialized!");
+  //Loads content on page AFTER the data is ready to display
+  loadContent();
+
   //   document.querySelector(".addCartBtn").addEventListener("click", cartItems);
 }
 
@@ -43,31 +46,33 @@ async function cartItems() {
     let itemq = item.quantity;
     totalItems = totalItems + itemq;
   });
-  console.log(totalItems);
   document.cookie = "itemsInCart=" + totalItems + ";path=/";
 
-  console.log(result);
   return totalItems;
 }
-// Displays current cart 
-    document.addEventListener('DOMContentLoaded', function () {
-    const openPopupBtn = document.getElementById('cartBtn');
-    const popup = document.querySelector('.popup');
-    const closePopupBtn = document.querySelector('.close');
-    
-    openPopupBtn.addEventListener('click', function() {
-        console.log("clicked!")
-      popup.style.display = 'block';
-    });
-    
-    closePopupBtn.addEventListener('click', function() {
-      popup.style.display = 'none';
-    });
-    
-    popup.addEventListener('click', function(event) {
-      if (event.target === popup) {
-        popup.style.display = 'none';
-      }
-    });
-})
+// Displays current cart
+const openPopupBtn = document.getElementById("cartBtn");
+const popup = document.querySelector(".popup");
+const closePopupBtn = document.querySelector(".close");
 
+openPopupBtn.addEventListener("click", function () {
+  console.log("clicked!");
+  popup.style.display = "block";
+});
+
+closePopupBtn.addEventListener("click", function () {
+  popup.style.display = "none";
+});
+
+popup.addEventListener("click", function (event) {
+  if (event.target === popup) {
+    popup.style.display = "none";
+  }
+});
+
+function loadContent() {
+  const pageContent = document.querySelector(".pageContent");
+  const loadingPlaceholder = document.querySelector(".loadingPlaceholder");
+  loadingPlaceholder.style.display = "none";
+  pageContent.style.display = "block";
+}

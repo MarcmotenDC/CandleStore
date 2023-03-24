@@ -22,8 +22,7 @@ function createCard(cardTitle, cardDesc, cardImg, cardPrice, id) {
       </div>
     </div>`;
     productCards.innerHTML += html;
-    //Loads content on page AFTER the data is ready to display
-    loadContent();
+  
   }
  
     for (let i = 0; i < dataLength; i++) {
@@ -90,10 +89,5 @@ function showPic(n) {
   }
   fPic[picIndex - 1].style.display = "block";
 }
+
 // Waits for API to be ready for display then shows page
-function loadContent() {
-  const pageContent = document.querySelector(".pageContent");
-  const loadingPlaceholder = document.querySelector(".loadingPlaceholder");
-  loadingPlaceholder.style.display = 'none'
-  pageContent.style.display = 'block';
-}

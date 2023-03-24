@@ -1,24 +1,39 @@
-const cartUrl = "/cart";
-const cartContentUrl = "/cart/contents"
+const cartPopupBtn = document.getElementById('cartBtn');
 
-// Pulls cart for cart.html
-async function showCart() {
-    const res = await fetch(cartUrl);
+cartPopupBtn.addEventListener('click', function() {
+    // Generate HTML for the cart items and quantity
+    const cartItems = getCartItems();
+    const cartHTML = generateCartHTML(cartItems);
+  
+    // Set the innerHTML of the popup to the cart HTML
+    const popupContent = document.querySelector('.popup-content');
+    popupContent.innerHTML = cartHTML;
+  
+    // Show the popup
+    popup.style.display = 'block';
+  });
+
+async function getCartItems() {
+    const res = await fetch("/cart");
     const result = await res.json();
-    console.log(result)
-    const renderedItemCount = await cartItems();
-    console.log("cart event done!");
-    itemCount.innerHTML = "(" + renderedItemCount + ")";
-    let cartHtml = `<div class="card">
-    <img class="cardImg" src="" />
-    <div class="cardBot">
-      <p class="cardTitle"></p>
-      <p class="cardDesc"></p>
-      <p class="cardPrice"></p>
-      <button class="addCartBtn" value="" onclick="addToCart(event)">Add to Cart</button>
-    </div>
-  </div>`;
-}
-showCart();
-
-
+    console.log(result.line_items)
+    const cartItems = result.line_items;
+    return cartItems;
+  }
+function generateCartHTML(cartItems) {
+    let cartHTML = '';
+  
+    // Iterate through each item in the cart
+    for (const item of cartItems) {
+      // Generate HTML for each item in the cart
+      const itemHTML = `
+        <div class="cart-item">
+          <span class="item-name">${item.name}</span>
+          <span class="item-quantity">${item.quantity}</span>
+        </div>
+      `;
+      cartHTML += itemHTML; // Append the HTML for each item to the cartHTML string
+    }
+  
+    return cartHTML; // Return the complete cart HTML string
+  }
