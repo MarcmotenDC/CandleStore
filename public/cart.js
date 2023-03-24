@@ -50,9 +50,9 @@ async function cartItems() {
   return totalItems;
 }
 // Displays current cart 
-async function openCart() {
+    document.addEventListener('DOMContentLoaded', function () {
     const openPopupBtn = document.getElementById('cartBtn');
-    const popup = document.getElementsByClassName('popup');
+    const popup = document.querySelector('.popup');
     const closePopupBtn = document.querySelector('.close');
     
     openPopupBtn.addEventListener('click', function() {
@@ -69,5 +69,5 @@ async function openCart() {
         popup.style.display = 'none';
       }
     });
-}
+})
 
