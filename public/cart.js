@@ -10,10 +10,6 @@ async function createCart() {
   const res = await fetch(cartUrl);
   const result = await res.json();
   console.log("cart Initialized!");
-  //Loads content on page AFTER the data is ready to display
-  loadContent();
-
-  //   document.querySelector(".addCartBtn").addEventListener("click", cartItems);
 }
 
 async function addToCart(event) {
@@ -51,28 +47,34 @@ async function cartItems() {
   return totalItems;
 }
 // Displays current cart
-const openPopupBtn = document.getElementById("cartBtn");
-const popup = document.querySelector(".popup");
-const closePopupBtn = document.querySelector(".close");
+const popupCartBtn = document.querySelector('#cartBtn');
+const popup = document.querySelector('#cart');
+const loadingPlaceholder = document.querySelector('.loadingPlaceholder');
 
-openPopupBtn.addEventListener("click", function () {
-  console.log("clicked!");
-  popup.style.display = "block";
-});
+// Show loading icon and hide popup
+popup.style.display = 'none';
+loadingPlaceholder.style.display = 'block';
 
-closePopupBtn.addEventListener("click", function () {
-  popup.style.display = "none";
-});
-
-popup.addEventListener("click", function (event) {
-  if (event.target === popup) {
-    popup.style.display = "none";
+popupCartBtn.addEventListener('click', async function() {
+  // Wait for the API call
+  while (document.readyState !== 'complete') {
+    await new Promise(resolve => setTimeout(resolve, 100));
   }
+
+  // Generate HTML for the cart items
+  const cartItems = await getCartItems();
+  const cartHTML = generateCartHTML(cartItems);
+
+  const cartContent = document.querySelector('#cartContent');
+  cartContent.innerHTML = cartHTML;
+
+  // Hide loading icon and show popup
+  popup.style.display = 'block';
+  loadingPlaceholder.style.display = 'none';
 });
 
-function loadContent() {
-  const pageContent = document.querySelector(".pageContent");
-  const loadingPlaceholder = document.querySelector(".loadingPlaceholder");
-  loadingPlaceholder.style.display = "none";
-  pageContent.style.display = "block";
-}
+// Close the popup when the X button is clicked
+const closeBtn = document.querySelector('.close');
+closeBtn.addEventListener('click', function() {
+  popup.style.display = 'none';
+});
