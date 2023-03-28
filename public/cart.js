@@ -1,6 +1,10 @@
 const cartUrl = "/cart";
 const cartContentUrl = "/cart/contents";
 const itemCount = document.querySelector(".itemCount");
+const loadingPlaceholder = document.querySelector('.loadingPlaceholder');
+const pageContent = document.querySelector('.pageContent')
+const popupCartBtn = document.querySelector('#cartBtn');
+const popup = document.querySelector('#cart');
 
 document.onload = createCart();
 
@@ -10,6 +14,9 @@ async function createCart() {
   const res = await fetch(cartUrl);
   const result = await res.json();
   console.log("cart Initialized!");
+  loadingPlaceholder.style.display = 'none';
+  pageContent.style.display = 'block'
+  
 }
 
 async function addToCart(event) {
@@ -47,31 +54,8 @@ async function cartItems() {
   return totalItems;
 }
 // Displays current cart
-const popupCartBtn = document.querySelector('#cartBtn');
-const popup = document.querySelector('#cart');
-const loadingPlaceholder = document.querySelector('.loadingPlaceholder');
 
-// Show loading icon and hide popup
-popup.style.display = 'none';
-loadingPlaceholder.style.display = 'block';
 
-popupCartBtn.addEventListener('click', async function() {
-  // Wait for the API call
-  while (document.readyState !== 'complete') {
-    await new Promise(resolve => setTimeout(resolve, 100));
-  }
-
-  // Generate HTML for the cart items
-  const cartItems = await getCartItems();
-  const cartHTML = generateCartHTML(cartItems);
-
-  const cartContent = document.querySelector('#cartContent');
-  cartContent.innerHTML = cartHTML;
-
-  // Hide loading icon and show popup
-  popup.style.display = 'block';
-  loadingPlaceholder.style.display = 'none';
-});
 
 // Close the popup when the X button is clicked
 const closeBtn = document.querySelector('.close');

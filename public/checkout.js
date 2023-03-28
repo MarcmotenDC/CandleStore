@@ -41,8 +41,7 @@ function generateCartHTML(cartItems) {
     const item = cartItems[itemID];
     const itemHTML = `
       <div class="cartItem">
-        <span class="itemName">${item.name}</span>
-        <span class="itemQuantity">${item.quantity}</span>
+        <h3 class="itemName">${item.name}: ${item.quantity}</h3>
       </div>
     `;
     cartHTML += itemHTML;
