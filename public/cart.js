@@ -8,11 +8,11 @@ const popup = document.querySelector('#cart');
 
 document.onload = createCart();
 
-document.onload = itemCount.innerHTML += "(0)";
-
 async function createCart() {
   const res = await fetch(cartUrl);
   const result = await res.json();
+  console.log(result)
+  itemCount.innerHTML = "(" + result.total_items + ")";
   console.log("cart Initialized!");
   loadingPlaceholder.style.display = 'none';
   pageContent.style.display = 'block'
@@ -58,7 +58,3 @@ async function cartItems() {
 
 
 // Close the popup when the X button is clicked
-const closeBtn = document.querySelector('.close');
-closeBtn.addEventListener('click', function() {
-  popup.style.display = 'none';
-});
