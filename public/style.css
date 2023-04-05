@@ -237,6 +237,7 @@ li a {
     width: 60px;
     height: 60px;
     animation: spin 2s linear infinite;
+    z-index: 999;
 }
 /* Cart Popup */
 .popup {
@@ -259,6 +260,23 @@ li a {
     padding: 20px;
     border-radius: 5px;
     text-align: center;
+    display: none;
+  }
+
+  #checkoutBtn {
+    margin: 10px;
+        border-color: #D62828;
+    border-radius: 4px;
+    color: white;
+    background-color: #D62828;
+    transition: 0.3s;
+  }
+
+  #checkoutBtn:hover {
+        border-color: #9a1b1b;
+    background-color: #9a1b1b;
+    transition: 0.3s;
+    cursor: pointer;
   }
   
   .close {
