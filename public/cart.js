@@ -5,18 +5,16 @@ const loadingPlaceholder = document.querySelector('.loadingPlaceholder');
 const pageContent = document.querySelector('.pageContent')
 const popupCartBtn = document.querySelector('#cartBtn');
 const popup = document.querySelector('#cart');
-
 document.onload = createCart();
 
+// initializes cart
 async function createCart() {
   const res = await fetch(cartUrl);
-  const result = await res.json();
-  console.log(result)
+  const result = await res.json(); 
   itemCount.innerHTML = "(" + result.total_items + ")";
   console.log("cart Initialized!");
   loadingPlaceholder.style.display = 'none';
-  pageContent.style.display = 'block'
-  
+  pageContent.style.display = 'block';
 }
 
 async function addToCart(event) {
@@ -53,8 +51,3 @@ async function cartItems() {
 
   return totalItems;
 }
-// Displays current cart
-
-
-
-// Close the popup when the X button is clicked
