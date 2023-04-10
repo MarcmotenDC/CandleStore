@@ -51,3 +51,8 @@ app.post('/cart', (req, res) => {
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`);
 })
+
+app.get('/checkout', (req, res) => {
+    commerce.checkout.generateTokenFrom('cart', commerce.cart.id())
+  .then(response => console.log(response.id));
+})
