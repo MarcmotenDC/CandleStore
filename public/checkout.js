@@ -3,7 +3,8 @@ const apiCartItems = document.getElementById('cartItems');
 const checkoutForm = document.getElementById('checkoutForm');
 const loadingIcon = document.querySelector('#loadingIcon');
 const closeBtn = document.querySelector('.close');
-const cartContent = document.getElementById("cartContent")
+const cartContent = document.getElementById("cartContent");
+const checoutBtn = document.getElementById("checkoutBtn");
 
 cartPopupBtn.addEventListener('click', async function() {
   // Show the loading icon and hide the checkout form
@@ -62,3 +63,11 @@ function generateCartHTML(cartItems) {
 
   return cartHTML;
 }
+
+async function checkoutCart () {
+  const res = await fetch('/checkout');
+  const data = await res.json();
+console.log("Here is the data:" + data);
+}
+
+checoutBtn.addEventListener("click", checkoutCart());
