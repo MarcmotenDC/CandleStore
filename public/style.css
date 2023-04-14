@@ -261,9 +261,11 @@ li a {
     border-radius: 5px;
     text-align: center;
     display: none;
+    max-height: 50vh;
+    overflow: auto;
   }
 
-  #checkoutBtn {
+  #checkoutBtn #payBtn {
     margin: 10px;
         border-color: #D62828;
     border-radius: 4px;

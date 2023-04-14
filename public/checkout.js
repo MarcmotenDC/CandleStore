@@ -4,7 +4,9 @@ const checkoutForm = document.getElementById('checkoutForm');
 const loadingIcon = document.querySelector('#loadingIcon');
 const closeBtn = document.querySelector('.close');
 const cartContent = document.getElementById("cartContent");
-const checoutBtn = document.getElementById("checkoutBtn");
+const checkoutBtn = document.getElementById("checkoutBtn");
+
+let cartEmpty = true;
 
 cartPopupBtn.addEventListener('click', async function() {
   // Show the loading icon and hide the checkout form
@@ -15,11 +17,11 @@ cartPopupBtn.addEventListener('click', async function() {
   const cartItems = await getCartItems();
   const cartHTML = generateCartHTML(cartItems);
 
-  // Hide the loading icon and show the cart items and checkout form
+  // Hide the loading icon and show the cart items and checkout button
   loadingIcon.style.display = 'none';
   cartContent.style.display = 'block';
+  checkoutForm.style.display = 'none';
   apiCartItems.style.display = 'block';
-  checkoutForm.style.display = 'block';
   apiCartItems.innerHTML = cartHTML;
 
   // Show the popup
@@ -45,6 +47,8 @@ async function getCartItems() {
 
 function generateCartHTML(cartItems) {
   if (cartItems.length === 0) {
+    cartEmpty = true;
+    checkoutBtn.style.display = 'none';
     return "<p>Your cart is empty.</p>";
   }
 
@@ -60,14 +64,25 @@ function generateCartHTML(cartItems) {
     `;
     cartHTML += itemHTML;
   }
-
+  cartEmpty = false;
+  checkoutBtn.style.display = 'inline-block';
   return cartHTML;
 }
 
-async function checkoutCart () {
-  const res = await fetch('/checkout');
-  const data = await res.json();
-console.log("Here is the data:" + data);
-}
 
-checoutBtn.addEventListener("click", checkoutCart());
+// Checkout Function
+checkoutBtn.addEventListener("click", async () => {
+  loadingIcon.style.display = 'block';
+  checkoutBtn.style.opacity = '0%'
+  try {
+    const res = await fetch('/checkout');
+    const data = await res.json();
+    loadingIcon.style.display = 'none';
+    checkoutBtn.style.display = 'none';
+    checkoutForm.style.display = 'block';
+    apiCartItems.style.display = 'none';
+  } catch(err) {
+    console.log(err)
+  }
+
+});
