@@ -265,7 +265,7 @@ li a {
     overflow: auto;
   }
 
-  #checkoutBtn #payBtn {
+  #checkoutBtn, #payBtn {
     margin: 10px;
         border-color: #D62828;
     border-radius: 4px;
@@ -274,7 +274,7 @@ li a {
     transition: 0.3s;
   }
 
-  #checkoutBtn:hover {
+  #checkoutBtn:hover, #payBtn:hover {
         border-color: #9a1b1b;
     background-color: #9a1b1b;
     transition: 0.3s;
