@@ -12,7 +12,7 @@ const commerce = new Commerce(
 app.use(express.static('public'));
 app.use(express.json());
 
-
+// 
 app.get('/', (req,res) => {
     console.log(req)
     res.sendFile(path.join(__dirname,'index.html'))
@@ -54,5 +54,5 @@ app.listen(PORT, () => {
 
 app.get('/checkout', (req, res) => {
     commerce.checkout.generateTokenFrom('cart', commerce.cart.id())
-  .then(response => console.log(response.id));
+  .then(result => res.json(result));
 })
