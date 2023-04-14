@@ -265,6 +265,9 @@ li a {
     overflow: auto;
   }
 
+  #totalPrice {
+    color: #9a1b1b;
+  }
   #checkoutBtn, #payBtn {
     margin: 10px;
         border-color: #D62828;
