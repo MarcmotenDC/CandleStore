@@ -1,58 +1,78 @@
-const express = require('express');
-const path = require('path')
+const express = require("express");
+const path = require("path");
 const app = express();
-const PORT = process.env.PORT || 3030
+const PORT = process.env.PORT || 3030;
 
 const Commerce = require("@chec/commerce.js");
 const commerce = new Commerce(
-    "pk_test_508420f944b7aa39c411978846b67e228dfdfcc4a2d26", true
-  );
+  "pk_test_508420f944b7aa39c411978846b67e228dfdfcc4a2d26",
+  true
+);
 
-
-app.use(express.static('public'));
+app.use(express.static("public"));
 app.use(express.json());
 
-// 
-app.get('/', (req,res) => {
-    console.log(req)
-    res.sendFile(path.join(__dirname,'index.html'))
-} )
+// main page
+app.get("/", (req, res) => {
+  console.log(req);
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+// grabs all products from API
+app.get("/api", (req, res) => {
+  commerce.products.list().then((result) => {
+    res.json(result);
+    if (!commerce) {
+      res.sendStatus(500);
+    }
+  });
+});
+// initializes cart
+app.get("/cart", (req, res) => {
+  commerce.cart.retrieve().then((result) => {
+    res.json(result);
 
-app.get('/api', (req,res) => {
-      commerce.products.list().then((result) => {
-        res.json(result);
-       if (!commerce) {
-        res.sendStatus(500);
-       }
-})})
+    if (!commerce) {
+      res.sendStatus(500);
+    }
+  });
+});
+// gets the contents of the cart to display in popup
+app.get("/cart/contents", (req, res) => {
+  commerce.cart.contents().then((items) => res.json(items));
+  if (!commerce) {
+    res.sendStatus(500);
+  }
+});
 
-app.get('/cart', (req, res) => {
-    commerce.cart.retrieve()
-    .then((result => {
-        res.json(result);
-        
-        if (!commerce) {
-            res.sendStatus(500);
-        }
-    }))
-})
+// Adds an item to the cart
+app.post("/cart", (req, res) => {
+  commerce.cart
+    .add(req.body.productID, 1)
+    .then((response) => res.json(response));
+});
 
-app.get('/cart/contents', (req, res) => {
-    commerce.cart.contents().then((items) => res.json(items));
-        if (!commerce) {
-            res.sendStatus(500);
-        }
-    })
+//! removes item from cart (soon to be added)
+app.post("/cart:id", (req, res) => {
+  commerce.cart
+    .remove(req.body.lineID, 1)
+    .then((response) => res.json(response));
+});
 
+// sends shipping and payment information
+app.post("/processpayment", async (req, res) => {
+  try {
+    const { paymentData, orderData } = req.body;
+    // creates order with line_items from localstorage
+    const order = await commerce.checkout.generateToken(orderData);
+    // takes both items in cart annd payment data to send the order to API
+    const capture = await commerce.checkout.capture(order.id, paymentData);
 
-app.post('/cart', (req, res) => {
-    commerce.cart.add(req.body.productID, 1).then((response) => res.json(response));
-})
+    res.json({ success: true, data: capture });
+  } catch (error) {
+    res.json({ success: false, error });
+  }
+});
+
 app.listen(PORT, () => {
-    console.log(`listening on port ${PORT}`);
-})
-
-app.get('/checkout', (req, res) => {
-    commerce.checkout.generateTokenFrom('cart', commerce.cart.id())
-  .then(result => res.json(result));
-})
+  console.log(`listening on port ${PORT}`);
+});
