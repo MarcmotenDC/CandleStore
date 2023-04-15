@@ -13,7 +13,7 @@ function submitPayment() {
   const cvv = document.getElementById("cvv").value;
   // grabs total price from storage
   const price = localStorage.getItem("totalPrice");
-
+    const line_items = localStorage.getItem("cartItems")
   const paymentData = {
     amount: price,
     payment: {
@@ -39,7 +39,7 @@ function submitPayment() {
   };
 
   const orderData = {
-    line_items: localStorage.getItem("cartItems"),
+    line_items: line_items,
     shipping: shippingData,
   };
 
