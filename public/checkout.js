@@ -1,4 +1,18 @@
-function submitPayment() {
+async function getCartForCheckout() {
+    const res = await fetch("/cart/contents");
+    const result = await res.json();
+    const lineItemsArray = result.map(item => {
+      return {
+        product_id: item.product_id,
+        quantity: item.quantity
+      };
+    });
+    return lineItemsArray;
+  }
+
+
+
+async function submitPayment() {
   const firstName = document.getElementById("firstName").value;
   const lastName = document.getElementById("lastName").value;
   const email = document.getElementById("email").value;
@@ -13,7 +27,7 @@ function submitPayment() {
   const cvv = document.getElementById("cvv").value;
   // grabs total price from storage
   const price = localStorage.getItem("totalPrice");
-    const line_items = localStorage.getItem("cartItems")
+
   const paymentData = {
     amount: price,
     payment: {
@@ -37,12 +51,12 @@ function submitPayment() {
     country: country,
     email: email,
   };
+  const lineItems = await getCartForCheckout();
 
   const orderData = {
-    line_items: line_items,
+    line_items: lineItems,
     shipping: shippingData,
   };
-
   fetch("/processpayment", {
     method: "POST",
     headers: {
@@ -54,6 +68,7 @@ function submitPayment() {
     .then((data) => {
       console.log(data);
       console.log(orderData);
+      console.log(orderData.line_items)
     })
     .catch((err) => {
       console.error(err);

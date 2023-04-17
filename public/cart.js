@@ -15,20 +15,21 @@ async function getCartItems() {
   const res = await fetch("/cart");
   const result = await res.json();
   // logs line_items
-  console.log(result.line_items);
+  console.log(result);
   const cartItems = result.line_items;
-  const lineItems = result.line_items.map(item => {
+  let lineItems = result.line_items.map((item) => {
     return {
+      product_id: item.product_id,
       name: item.name,
       quantity: item.quantity,
       price: item.price.raw,
-      sku: item.product_sku
-    }
-    
+      sku: item.product_sku,
+    };
   });
+  lineItems =JSON.stringify(lineItems);
   // Stores line_items in localstorage for sending order data
   localStorage.setItem("cartItems", lineItems);
-console.log(lineItems);
+  console.log(lineItems);
   return cartItems;
 }
 
@@ -55,8 +56,8 @@ function generateCartHTML(cartItems) {
     // adds price of all items to var
     totalPrice = totalPrice + item.price.raw;
   }
-// sets displayed total
-  totalPriceHTML.innerHTML = `Total: $`+totalPrice;
+  // sets displayed total
+  totalPriceHTML.innerHTML = `Total: $` + totalPrice;
   // sets the cart total to be pulled in checkout.js
   localStorage.setItem("totalPrice", totalPrice);
   cartEmpty = false;
