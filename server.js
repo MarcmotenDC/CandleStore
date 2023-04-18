@@ -30,7 +30,6 @@ app.get("/api", (req, res) => {
 app.get("/cart", (req, res) => {
   commerce.cart.retrieve().then((result) => {
     res.json(result);
-
     if (!commerce) {
       res.sendStatus(500);
     }
@@ -62,13 +61,20 @@ app.post("/cart:id", (req, res) => {
 app.post("/processpayment", async (req, res) => {
   try {
     const { paymentData, orderData } = req.body;
-    // creates order with line_items from localstorage
-    const order = await commerce.checkout.generateToken(orderData);
-    // takes both items in cart annd payment data to send the order to API
-    const capture = await commerce.checkout.capture(order.id, paymentData);
-
+    // Retrieve the current cart
+    console.log("before cart")
+    const cart = await commerce.cart.retrieve();
+    console.log("cart:" + cart)
+    // Generate a token for the cart
+    const { id: cartId } = cart;
+    const { id: orderId } = await commerce.checkout.generateToken(cartId, {
+      type: "cart",
+    });
+    // Capture the payment for the order
+    const capture = await commerce.checkout.capture(orderId, paymentData, orderData);
     res.json({ success: true, data: capture });
   } catch (error) {
+    console.log(error);
     res.json({ success: false, error });
   }
 });

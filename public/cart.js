@@ -17,19 +17,6 @@ async function getCartItems() {
   // logs line_items
   console.log(result);
   const cartItems = result.line_items;
-  let lineItems = result.line_items.map((item) => {
-    return {
-      product_id: item.product_id,
-      name: item.name,
-      quantity: item.quantity,
-      price: item.price.raw,
-      sku: item.product_sku,
-    };
-  });
-  lineItems =JSON.stringify(lineItems);
-  // Stores line_items in localstorage for sending order data
-  localStorage.setItem("cartItems", lineItems);
-  console.log(lineItems);
   return cartItems;
 }
 
