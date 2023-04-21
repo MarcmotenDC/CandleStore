@@ -1,60 +1,97 @@
-const cartUrl = "/cart";
-const cartContentUrl = "/cart/contents";
-const itemCount = document.querySelector(".itemCount");
-const loadingPlaceholder = document.querySelector('.loadingPlaceholder');
-const pageContent = document.querySelector('.pageContent')
-const popupCartBtn = document.querySelector('#cartBtn');
-const popup = document.querySelector('#cart');
+const cartPopupBtn = document.getElementById("cartBtn");
+const apiCartItems = document.getElementById("cartItems");
+const checkoutForm = document.getElementById("checkoutForm");
+const loadingIcon = document.querySelector("#loadingIcon");
+const closeBtn = document.querySelector(".close");
+const cartContent = document.getElementById("cartContent");
+const checkoutBtn = document.getElementById("checkoutBtn");
+const totalPriceHTML = document.getElementById("totalPrice");
 
-document.onload = createCart();
+let cartEmpty = true;
+let totalPrice = 0;
 
-async function createCart() {
-  const res = await fetch(cartUrl);
+// get Items stored in cart on API
+async function getCartItems() {
+  const res = await fetch("/cart");
   const result = await res.json();
-  console.log(result)
-  itemCount.innerHTML = "(" + result.total_items + ")";
-  console.log("cart Initialized!");
-  loadingPlaceholder.style.display = 'none';
-  pageContent.style.display = 'block'
-  
+  // logs line_items
+  console.log(result);
+  const cartItems = result.line_items;
+  return cartItems;
 }
 
-async function addToCart(event) {
-  console.log("cart event");
+// Display cart information in popup
+function generateCartHTML(cartItems) {
+  // when cart is empty this shows
+  if (cartItems.length === 0) {
+    cartEmpty = true;
+    checkoutBtn.style.display = "none";
+    return "<p>Your cart is empty.</p>";
+  }
+
+  let cartHTML = "";
+  totalPrice = 0;
+  // Iterate through each item in the cart
+  for (const itemID in cartItems) {
+    const item = cartItems[itemID];
+    const itemHTML = `
+      <div class="cartItem">
+        <h3 class="itemName">${item.name}: ${item.quantity} | $${item.price.raw}</h3>
+      </div>
+    `;
+    cartHTML += itemHTML;
+    // adds price of all items to var
+    totalPrice = totalPrice + item.price.raw;
+  }
+  // sets displayed total
+  totalPriceHTML.innerHTML = `Total: $` + totalPrice;
+  // sets the cart total to be pulled in checkout.js
+  localStorage.setItem("totalPrice", totalPrice);
+  cartEmpty = false;
+  // shows checkout button ONLY when there are items in the cart
+  checkoutBtn.style.display = "inline-block";
+  return cartHTML;
+}
+
+// show Cart popup
+cartPopupBtn.addEventListener("click", async function () {
+  // Show the loading icon and hide the checkout form
+  loadingIcon.style.display = "block";
+  popup.style.display = "block";
+
+  // Generate HTML for the cart items
+  const cartItems = await getCartItems();
+  const cartHTML = generateCartHTML(cartItems);
+
+  // Hide the loading icon and show the cart items and checkout button
+  loadingIcon.style.display = "none";
+  cartContent.style.display = "block";
+  checkoutForm.style.display = "none";
+  apiCartItems.style.display = "block";
+  checkoutBtn.style.opacity = "100%";
+  apiCartItems.innerHTML = cartHTML;
+
+  // Close popup when X is clicked
+  closeBtn.addEventListener("click", function () {
+    popup.style.display = "none";
+    cartContent.style.display = "none";
+    checkoutForm.style.display = "none";
+    apiCartItems.style.display = "none";
+  });
+});
+
+// Checkout Function
+checkoutBtn.addEventListener("click", async () => {
+  // shows loading icon when api is being called
+  loadingIcon.style.display = "block";
+  checkoutBtn.style.opacity = "0%";
   try {
-    const res = await fetch(cartUrl, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        productID: event.target.value,
-      }),
-    });
-    const renderedItemCount = await cartItems();
-    console.log("cart event done!");
-    itemCount.innerHTML = "(" + renderedItemCount + ")";
+    // removes loading icon and displays checkout form
+    loadingIcon.style.display = "none";
+    checkoutBtn.style.display = "none";
+    checkoutForm.style.display = "block";
+    apiCartItems.style.display = "none";
   } catch (err) {
     console.log(err);
   }
-}
-// awaits fetching cart content then runs through quantity of items in cart
-async function cartItems() {
-  const res = await fetch(cartContentUrl);
-  const result = await res.json();
-  let totalItems = 0;
-  //runs through array of items and adds the quantity
-  result.forEach((item) => {
-    let itemq = item.quantity;
-    totalItems = totalItems + itemq;
-  });
-  document.cookie = "itemsInCart=" + totalItems + ";path=/";
-
-  return totalItems;
-}
-// Displays current cart
-
-
-
-// Close the popup when the X button is clicked
+});

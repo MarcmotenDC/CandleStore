@@ -1,64 +1,60 @@
-const cartPopupBtn = document.getElementById('cartBtn');
-const apiCartItems = document.getElementById('cartItems');
-const checkoutForm = document.getElementById('checkoutForm');
-const loadingIcon = document.querySelector('#loadingIcon');
-const closeBtn = document.querySelector('.close');
-const cartContent = document.getElementById("cartContent")
+document.getElementById('payBtn').addEventListener('click', async function submitPayment() {
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  const email = document.getElementById("email").value;
+  const street = document.getElementById("street").value;
+  const city = document.getElementById("city").value;
+  const region = document.getElementById("region").value;
+  const postalCode = document.getElementById("postalCode").value;
+  const country = document.getElementById("country").value;
+  const cardNum = document.getElementById("cardNum").value;
+  const expiryMonth = document.getElementById("expiryMonth").value;
+  const expiryYear = document.getElementById("expiryYear").value;
+  const cvv = document.getElementById("cvv").value;
+  // grabs total price from storage
+  const price = localStorage.getItem("totalPrice");
 
-cartPopupBtn.addEventListener('click', async function() {
-  // Show the loading icon and hide the checkout form
-  loadingIcon.style.display = 'block';
-  popup.style.display = 'block';
-
-  // Generate HTML for the cart items
-  const cartItems = await getCartItems();
-  const cartHTML = generateCartHTML(cartItems);
-
-  // Hide the loading icon and show the cart items and checkout form
-  loadingIcon.style.display = 'none';
-  cartContent.style.display = 'block';
-  apiCartItems.style.display = 'block';
-  checkoutForm.style.display = 'block';
-  apiCartItems.innerHTML = cartHTML;
-
-  // Show the popup
-
-  closeBtn.addEventListener('click', function() {
-  console.log("closed!")
-  popup.style.display = 'none';
-  cartContent.style.display = 'none';
-  checkoutForm.style.display = 'none';
-  apiCartItems.style.display = 'none';
-});
-});
-
-
-
-async function getCartItems() {
-  const res = await fetch("/cart");
-  const result = await res.json();
-  console.log(typeof result.line_items);
-  const cartItems = result.line_items;
-  return cartItems;
+  const paymentData = {
+      gateway: "test_gateway",
+      card: {
+        number: 4242424242424242,
+        expiry_month: expiryMonth,
+        expiry_year: expiryYear,
+        cvc: cvv,
+        postal_zip_code: postalCode,
+      },
+  };
+const customerData = {
+    firstname: firstName,
+    lastname: lastName,
+    email: email,
 }
-
-function generateCartHTML(cartItems) {
-  if (cartItems.length === 0) {
-    return "<p>Your cart is empty.</p>";
-  }
-
-  let cartHTML = "";
-
-  // Iterate through each item in the cart
-  for (const itemID in cartItems) {
-    const item = cartItems[itemID];
-    const itemHTML = `
-      <div class="cartItem">
-        <h3 class="itemName">${item.name}: ${item.quantity}</h3>
-      </div>
-    `;
-    cartHTML += itemHTML;
-  }
-
-  return cartHTML;
-}
+  const shippingData = {
+    name: firstName + " " + lastName,
+    street: street,
+    town_city: city,
+    county_state: region,
+    postal_zip_code: postalCode,
+    country: country,
+  };
+  const orderData = {
+    customer: customerData,
+      shipping: shippingData,
+      payment: paymentData,
+  };
+  console.log(orderData)
+  fetch("/processpayment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ orderData }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
