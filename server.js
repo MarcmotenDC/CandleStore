@@ -62,16 +62,14 @@ app.post("/processpayment", async (req, res) => {
   try {
     const { paymentData, orderData } = req.body;
     // Retrieve the current cart
-    console.log("before cart")
     const cart = await commerce.cart.retrieve();
-    console.log("cart:" + cart)
     // Generate a token for the cart
     const { id: cartId } = cart;
     const { id: orderId } = await commerce.checkout.generateToken(cartId, {
       type: "cart",
     });
-    // Capture the payment for the order
-    const capture = await commerce.checkout.capture(orderId, paymentData, orderData);
+    // Capture the payment for the 
+    const capture = await commerce.checkout.capture(orderId, orderData, paymentData, );
     res.json({ success: true, data: capture });
   } catch (error) {
     console.log(error);
