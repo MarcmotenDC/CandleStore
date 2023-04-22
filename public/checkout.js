@@ -35,7 +35,7 @@ const customerData = {
     town_city: city,
     county_state: region,
     postal_zip_code: postalCode,
-    country: country,
+    country: "US",
   };
   const orderData = {
     customer: customerData,
