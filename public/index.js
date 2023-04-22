@@ -42,8 +42,8 @@ function createGal(cardTitle, cardImg, cardPrice, id) {
     <fpic class="fPic">
       <img class="fPicImg" src="${cardImg}" />
       <h2 class="fPicTitle">${cardTitle}</h2>
-      <h2 class="fPicCost">${cardPrice}<h2>
-      <button class="addCartBtn" value="${id}" onclick="addToCart(event)">Add to Cart</button>
+      <h2 class="fPicCost">${cardPrice}</h2>
+      <div class="galBtn"><button class="addCartBtn" value="${id}" onclick="addToCart(event)">Add to Cart</button></div>
     </fpic>
     <a class="prev" onclick="nextPic(-1)" style="left: 0">&#10094;</a>
     <a class="next" onclick="nextPic(1)">&#10095;</a>
