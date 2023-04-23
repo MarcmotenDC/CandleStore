@@ -36,12 +36,12 @@ function generateCartHTML(cartItems) {
     const item = cartItems[itemID];
     const itemHTML = `
       <div class="cartItem">
-        <h3 class="itemName">${item.name}: ${item.quantity} | $${item.price.raw}</h3>
+        <h3 class="itemName">${item.name}: ${item.quantity} | $${item.price.raw * item.quantity}</h3>
       </div>
     `;
     cartHTML += itemHTML;
     // adds price of all items to var
-    totalPrice = totalPrice + item.price.raw;
+    totalPrice = totalPrice + (item.price.raw * item.quantity);
   }
   // sets displayed total
   totalPriceHTML.innerHTML = `Total: $` + totalPrice;
@@ -62,7 +62,7 @@ cartPopupBtn.addEventListener("click", async function () {
   // Generate HTML for the cart items
   const cartItems = await getCartItems();
   const cartHTML = generateCartHTML(cartItems);
-
+  console.log('cartHTML:' + cartHTML)
   // Hide the loading icon and show the cart items and checkout button
   loadingIcon.style.display = "none";
   cartContent.style.display = "block";

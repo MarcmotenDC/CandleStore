@@ -19,6 +19,7 @@ async function createCart() {
 
 async function addToCart(event) {
   console.log("cart event");
+  const quantity = event.target.parentElement.querySelector('.cardQuantity').value;
   event.target.innerHTML = 'Adding...';
   try {
     const res = await fetch(cartUrl, {
@@ -29,6 +30,7 @@ async function addToCart(event) {
       },
       body: JSON.stringify({
         productID: event.target.value,
+        quantity: quantity,
       }),
     });
     const renderedItemCount = await cartItems();

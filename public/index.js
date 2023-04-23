@@ -18,6 +18,8 @@ function createCard(cardTitle, cardDesc, cardImg, cardPrice, id) {
         <p class="cardTitle">${cardTitle}</p>
         <p class="cardDesc">${cardDesc}</p>
         <p class="cardPrice">${cardPrice}</p>
+        <label class="cardQuantityLabel" for="quantity">Quantity:</label>
+        <input class="cardQuantity" type="number" name="quantity" min="1" max="10" value="1">
         <button class="addCartBtn" value="${id}" onclick="addToCart(event)">Add to Cart</button>
       </div>
     </div>`;

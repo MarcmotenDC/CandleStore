@@ -9,6 +9,9 @@ body{
     margin: 0 ;
 }
 
+input {
+    width: 95%;
+}
 .navbar-nav {
     list-style-type: none;
     margin: 0;
@@ -198,7 +201,7 @@ li a {
     border-color: #F77F00;
     padding: 5px;
     background-color: white ;
-    height: 361.2px;
+    height: 385px;
     
 }
 .cardImg {
@@ -230,6 +233,11 @@ li a {
     margin-top: 2px;
 }
 
+.cardQuantity {
+    display: inline-block;
+    width: 30%;
+    margin-bottom: 8px;
+}
 
 .addCartBtn:hover {
     border-color: #9a1b1b;
@@ -295,7 +303,7 @@ li a {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
   }
-  
+
 #cartContent {
     position: absolute;
     top: 45%;
@@ -309,7 +317,11 @@ li a {
     max-height: 50vh;
     overflow: auto;
   }
-
+  @media (max-width: 750px) {
+    #cartContent {
+        width: 75%;
+    }
+  }
   #totalPrice {
     color: #9a1b1b;
   }
