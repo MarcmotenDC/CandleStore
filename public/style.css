@@ -56,9 +56,19 @@ li a {
     border-radius: 16px;
     width: 50%;
 }
+
+#mobile-brand {
+    display: none;
+}
 @media (max-width: 640px) {
   .title {
     font-size: 1.2em;
+  }
+  #full-brand {
+    display: none;
+  }
+  #mobile-brand {
+    display: block;
   }
 }
 .title2 {
