@@ -19,6 +19,7 @@ async function createCart() {
 
 async function addToCart(event) {
   console.log("cart event");
+  event.target.innerHTML = 'Adding...';
   try {
     const res = await fetch(cartUrl, {
       method: "POST",
@@ -32,6 +33,7 @@ async function addToCart(event) {
     });
     const renderedItemCount = await cartItems();
     console.log("cart event done!");
+    event.target.innerHTML = 'Add to Cart';
     itemCount.innerHTML = "(" + renderedItemCount + ")";
   } catch (err) {
     console.log(err);
