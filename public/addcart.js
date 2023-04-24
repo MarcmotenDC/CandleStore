@@ -5,6 +5,7 @@ const loadingPlaceholder = document.querySelector('.loadingPlaceholder');
 const pageContent = document.querySelector('.pageContent')
 const popupCartBtn = document.querySelector('#cartBtn');
 const popup = document.querySelector('#cart');
+const emptyCartBtn = document.getElementById("clearCartBtn");
 document.onload = createCart();
 
 // initializes cart
@@ -55,3 +56,7 @@ async function cartItems() {
 
   return totalItems;
 }
+
+emptyCartBtn.addEventListener("click", () => {
+  itemCount.innerHTML = "(" + "0" + ")";
+})

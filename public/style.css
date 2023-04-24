@@ -347,7 +347,7 @@ li a {
   #totalPrice {
     color: #9a1b1b;
   }
-  #checkoutBtn, #payBtn {
+  #checkoutBtn, #payBtn, #clearCartBtn {
     margin: 10px;
         border-color: #D62828;
     border-radius: 4px;
@@ -356,7 +356,7 @@ li a {
     transition: 0.3s;
   }
 
-  #checkoutBtn:hover, #payBtn:hover {
+  #checkoutBtn:hover, #payBtn:hover, #clearCartBtn:hover {
         border-color: #9a1b1b;
     background-color: #9a1b1b;
     transition: 0.3s;
