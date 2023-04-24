@@ -18,6 +18,8 @@ function createCard(cardTitle, cardDesc, cardImg, cardPrice, id) {
         <p class="cardTitle">${cardTitle}</p>
         <p class="cardDesc">${cardDesc}</p>
         <p class="cardPrice">${cardPrice}</p>
+        <label class="cardQuantityLabel" for="quantity">Quantity:</label>
+        <input class="cardQuantity" type="number" name="quantity" min="1" max="10" value="1">
         <button class="addCartBtn" value="${id}" onclick="addToCart(event)">Add to Cart</button>
       </div>
     </div>`;
@@ -25,7 +27,7 @@ function createCard(cardTitle, cardDesc, cardImg, cardPrice, id) {
   
   }
  
-    for (let i = 0; i < dataLength; i++) {
+    for (let i = 0; i < 4; i++) {
         let cardTitle = data.data[i].name;
         let desc = data.data[i].description;
         let cardImg = data.data[i].image.url;
@@ -42,8 +44,13 @@ function createGal(cardTitle, cardImg, cardPrice, id) {
     <fpic class="fPic">
       <img class="fPicImg" src="${cardImg}" />
       <h2 class="fPicTitle">${cardTitle}</h2>
-      <h2 class="fPicCost">${cardPrice}<h2>
-      <button class="addCartBtn" value="${id}" onclick="addToCart(event)">Add to Cart</button>
+      <h2 class="fPicCost">${cardPrice}</h2>
+      <div class="galQuantity">
+      <label class="cardQuantityLabel" for="quantity">Quantity:</label>
+      <input class="cardQuantity" type="number" name="quantity" min="1" max="10" value="1">
+      <button class="addCartBtn galBtn" value="${id}" onclick="addToCart(event)">Add to Cart</button>
+      </div>
+      
     </fpic>
     <a class="prev" onclick="nextPic(-1)" style="left: 0">&#10094;</a>
     <a class="next" onclick="nextPic(1)">&#10095;</a>

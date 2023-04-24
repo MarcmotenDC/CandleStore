@@ -5,6 +5,7 @@ const loadingPlaceholder = document.querySelector('.loadingPlaceholder');
 const pageContent = document.querySelector('.pageContent')
 const popupCartBtn = document.querySelector('#cartBtn');
 const popup = document.querySelector('#cart');
+const emptyCartBtn = document.getElementById("clearCartBtn");
 document.onload = createCart();
 
 // initializes cart
@@ -19,6 +20,9 @@ async function createCart() {
 
 async function addToCart(event) {
   console.log("cart event");
+  const quantity = event.target.parentElement.querySelector('.cardQuantity').value;
+  event.target.innerHTML = 'Adding...';
+  popupCartBtn.style.display = 'none'
   try {
     const res = await fetch(cartUrl, {
       method: "POST",
@@ -28,10 +32,13 @@ async function addToCart(event) {
       },
       body: JSON.stringify({
         productID: event.target.value,
+        quantity: quantity,
       }),
     });
     const renderedItemCount = await cartItems();
     console.log("cart event done!");
+    event.target.innerHTML = 'Add to Cart';
+    popupCartBtn.style.display = 'block';
     itemCount.innerHTML = "(" + renderedItemCount + ")";
   } catch (err) {
     console.log(err);
@@ -51,3 +58,7 @@ async function cartItems() {
 
   return totalItems;
 }
+
+emptyCartBtn.addEventListener("click", () => {
+  itemCount.innerHTML = "(" + "0" + ")";
+})

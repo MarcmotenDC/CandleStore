@@ -43,10 +43,17 @@ app.get("/cart/contents", (req, res) => {
   }
 });
 
+app.get("/clear", (req, res) => {
+  commerce.cart.empty().then(response => res.json(response));
+  if (!commerce) {
+    res.sendStatus(500);
+  }
+});
+
 // Adds an item to the cart
 app.post("/cart", (req, res) => {
   commerce.cart
-    .add(req.body.productID, 1)
+    .add(req.body.productID, req.body.quantity)
     .then((response) => res.json(response));
 });
 
