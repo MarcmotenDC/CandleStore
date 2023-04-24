@@ -22,6 +22,7 @@ async function addToCart(event) {
   console.log("cart event");
   const quantity = event.target.parentElement.querySelector('.cardQuantity').value;
   event.target.innerHTML = 'Adding...';
+  popupCartBtn.style.display = 'none'
   try {
     const res = await fetch(cartUrl, {
       method: "POST",
@@ -37,6 +38,7 @@ async function addToCart(event) {
     const renderedItemCount = await cartItems();
     console.log("cart event done!");
     event.target.innerHTML = 'Add to Cart';
+    popupCartBtn.style.display = 'block';
     itemCount.innerHTML = "(" + renderedItemCount + ")";
   } catch (err) {
     console.log(err);
